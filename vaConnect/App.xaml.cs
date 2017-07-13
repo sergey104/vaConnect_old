@@ -72,7 +72,7 @@ namespace vaConnect
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(WiFiConfigPage), e.Arguments);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
@@ -101,6 +101,21 @@ namespace vaConnect
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+                // TODO: Handle URI activation
+                // The received URI is eventArgs.Uri.AbsoluteUri
+                Uri myUri1 = new Uri(eventArgs.Uri.AbsoluteUri);
+                WwwFormUrlDecoder decoder = new WwwFormUrlDecoder(myUri1.Query);
+                String token = decoder.GetFirstValueByName("token");
+                String identifier = decoder.GetFirstValueByName("identifier");
+                WiFiProfile z = new WiFiProfile();
+                OnboardingService.getInstance().getWiFiProfile(token, identifier, z);
+            }
         }
     }
 }
