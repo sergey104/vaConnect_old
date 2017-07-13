@@ -9,10 +9,11 @@ namespace vaConnect
     public class WiFiProfile
     {
 
-        private String token;
-        private String os;
-        private UserPolicies user_policies;
-        private String user_identity;
+        public
+        String token;
+        public String os;
+        public UserPolicies user_policies;
+        public String user_identity;
 
         public WiFiProfile()
         {
@@ -72,17 +73,17 @@ namespace vaConnect
     public class UserPolicies
     {
 
-        private String auth_type;
-        private String eap_type;
-        private String ssid;
-        private String username;
-        private String password;
-        private String profile_name;
-        private bool auto_connect;
-        private String public_ca;
-        private String user_cert;
-        private String private_cert;
-        private String private_cert_pass;
+        public String auth_type;
+        public String eap_type;
+        public String ssid;
+        public String username;
+        public String password;
+        public String profile_name;
+        public bool auto_connect;
+        public String public_ca;
+        public String user_cert;
+        public String private_cert;
+        public String private_cert_pass;
 
         public UserPolicies()
         {
