@@ -2,6 +2,7 @@
   "dependencies": {
     "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Newtonsoft.Json": "10.0.3",
     "UriBuilder.Fluent": "1.4.0"
   },
   "frameworks": {
