@@ -3,6 +3,8 @@
     "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Newtonsoft.Json": "10.0.3",
+    "Tizen.Network.WiFi": "1.0.18",
+    "Tizen.Network.WiFiDirect": "1.0.5",
     "UriBuilder.Fluent": "1.4.0"
   },
   "frameworks": {

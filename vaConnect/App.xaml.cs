@@ -65,18 +65,15 @@ namespace vaConnect
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
+            if (rootFrame.Content == null)
             {
-                if (rootFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(typeof(WiFiConfigPage), e.Arguments);
-                }
-                // Ensure the current window is active
-                Window.Current.Activate();
+                // When the navigation stack isn't restored navigate to the first page,
+                // configuring the new page by passing required information as a navigation
+                // parameter
+                rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
+            // Ensure the current window is active
+            Window.Current.Activate();
         }
 
         /// <summary>
@@ -106,7 +103,7 @@ namespace vaConnect
         {
             if (args.Kind == ActivationKind.Protocol)
             {
-                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+             /*   ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
                 // TODO: Handle URI activation
                 // The received URI is eventArgs.Uri.AbsoluteUri
                 Uri myUri1 = new Uri(eventArgs.Uri.AbsoluteUri);
@@ -114,7 +111,7 @@ namespace vaConnect
                 String token = decoder.GetFirstValueByName("token");
                 String identifier = decoder.GetFirstValueByName("identifier");
                 WiFiProfile z = new WiFiProfile();
-                OnboardingService.getInstance().getWiFiProfile(token, identifier, z);
+                OnboardingService.getInstance().getWiFiProfile(token, identifier, z); */
             }
         }
     }

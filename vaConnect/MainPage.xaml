@@ -9,5 +9,8 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock x:Name="pageTitle" Text="Page 11111111111111111111111111111111111" />
+        <HyperlinkButton Content="Click to go to page 2"
+                 
+                 HorizontalAlignment="Center"/>
     </Grid>
 </Page>

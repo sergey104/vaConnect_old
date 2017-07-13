@@ -101,6 +101,7 @@
     <Compile Include="eap\EapPEAP.cs" />
     <Compile Include="eap\EapTTLS.cs" />
     <Compile Include="eap\EapTLS.cs" />
+    <Compile Include="Interop.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -110,6 +111,7 @@
     <Compile Include="WiFiConfigPage.xaml.cs">
       <DependentUpon>WiFiConfigPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WlanApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
