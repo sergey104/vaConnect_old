@@ -274,7 +274,7 @@ namespace NativeWifi
 				get
 				{
 					Dot11PhyType[] ret = new Dot11PhyType[numberOfPhyTypes];
-					Array.Copy(dot11PhyTypes, ret, numberOfPhyTypes);
+					Array.Copy(dot11PhyTypes, ret, (int)numberOfPhyTypes);
 					return ret;
 				}
 			}

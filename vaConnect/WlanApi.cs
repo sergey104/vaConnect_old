@@ -393,7 +393,7 @@ namespace NativeWifi
 				try
 				{
 					Connect(connectionMode, bssType, profile);
-					while (queueEvents && eventQueueFilled.WaitOne(connectTimeout, true))
+					while (queueEvents && eventQueueFilled.WaitOne(connectTimeout))
 					{
 						lock (eventQueue)
 						{

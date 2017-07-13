@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
+using NativeWifi;
 namespace vaConnect
 {
     class OnboardingService
@@ -43,7 +44,7 @@ namespace vaConnect
             StreamReader reader = new StreamReader(dataStream);
             // Read the content.
             String responseFromServer = reader.ReadToEnd();
-
+           
 
             z = JsonConvert.DeserializeObject<WiFiProfile>(responseFromServer);
 
