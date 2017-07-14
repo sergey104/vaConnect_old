@@ -17,10 +17,12 @@ namespace vaConnect
 
         public WiFiProfile()
         {
+            user_policies = new UserPolicies();
         }
 
         public WiFiProfile(String token, String os, UserPolicies user_policies, String user_identity)
         {
+            user_policies = new UserPolicies();
             this.token = token;
             this.os = os;
             this.user_policies = user_policies;
@@ -67,7 +69,24 @@ namespace vaConnect
             this.user_identity = user_identity;
         }
 
+       public WiFiConfiguration getWifiConfiguration() {
 
+            WiFiConfiguration wc = new WiFiConfiguration();
+            try {
+                
+            if ("EAP-TLS" == user_policies.getEap_type()) {
+                return EapTLS.getWiFiConfiguration(user_policies.ssid, user_policies.username, user_policies.user_cert, user_policies.private_cert, user_policies.private_cert_pass, user_policies.getPublic_ca(), 1, false);
+            } else if ("EAP-TTLS" == (user_policies.getEap_type())) {
+                return EapTTLS.getWiFiConfiguration(user_policies.ssid, user_policies.username, user_policies.user_cert, user_policies.private_cert, user_policies.private_cert_pass, user_policies.getPublic_ca(), 1, false);
+                } else if ("EAP-PEAP" == (user_policies.getEap_type())) {
+                return EapPEAP.getWiFiConfiguration(user_policies.ssid, user_policies.username, user_policies.user_cert, user_policies.private_cert, user_policies.private_cert_pass, user_policies.getPublic_ca(), 1, false);
+                }
+        } catch (Exception e) {
+                return wc;
+        }
+
+            return wc;
+    } 
 
     }
     public class UserPolicies

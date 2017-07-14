@@ -26,5 +26,17 @@ namespace vaConnect
         {
             this.InitializeComponent();
         }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is string && !string.IsNullOrWhiteSpace((string)e.Parameter))
+            {
+                pageMessage.Text = $"Hi, {e.Parameter.ToString()}";
+            }
+            else
+            {
+                pageMessage.Text = "Hi!";
+            }
+            base.OnNavigatedTo(e);
+        }
     }
 }

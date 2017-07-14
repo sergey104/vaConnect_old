@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using NativeWifi;
 
 namespace vaConnect
 {
@@ -30,7 +31,7 @@ namespace vaConnect
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            
+
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace vaConnect
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(WiFiConfigPage), e.Arguments);
+                rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();
@@ -128,12 +129,13 @@ namespace vaConnect
                 // configuring the new page by passing required information as a navigation
                 // parameter
                 rootFrame.Navigate(typeof(WiFiConfigPage));
+
             }
             // Ensure the current window is active
             Window.Current.Activate();
             if (args.Kind == ActivationKind.Protocol)
             {
-               // System.IO.File.WriteAllText("D:\\WriteText.txt", "inside");
+                // System.IO.File.WriteAllText("D:\\WriteText.txt", "inside");
                 ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
                 // TODO: Handle URI activation
                 // The received URI is eventArgs.Uri.AbsoluteUri
@@ -142,8 +144,18 @@ namespace vaConnect
                 String token = decoder.GetFirstValueByName("token");
                 String identifier = decoder.GetFirstValueByName("identifier");
                 WiFiProfile z = new WiFiProfile();
-                OnboardingService.getInstance().getWiFiProfile(token, identifier, z);
-              
+
+                OnboardingService.getInstance().getWiFiProfile(token, identifier);
+                z = OnboardingService.getInstance().getProfile();
+                rootFrame.Navigate(typeof(WiFiConfigPage), z.getUser_policies().getEap_type());
+                WiFiConfiguration wc = z.getWifiConfiguration();
+
+                WlanClient client = new WlanClient();
+                foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
+                {
+                    wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, wc.getxml(), true);
+                    wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, "test");
+                }
             }
         }
     }

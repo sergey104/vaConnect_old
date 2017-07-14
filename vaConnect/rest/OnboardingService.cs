@@ -12,9 +12,12 @@ namespace vaConnect
     class OnboardingService
     {
         private static OnboardingService instance;
-
+        public WiFiProfile inner;
         private OnboardingService()
-        { }
+        {
+            inner = new WiFiProfile();
+            inner.setToken("test");
+        }
 
         public static OnboardingService getInstance()
         {
@@ -24,8 +27,9 @@ namespace vaConnect
             }
             return instance;
         }
-        public async void getWiFiProfile(String token, String identifier, WiFiProfile z)
+        public async void getWiFiProfile(String token, String identifier)
         {
+            
             Uri baseUri = new Uri("https://vmnac-int.fon.com/onboarding/windows/result/");
             String add = "?token=" + token + "&identifier=" + identifier;
             Uri myUri = new Uri(baseUri, add);
@@ -37,7 +41,7 @@ namespace vaConnect
             // Get the response.
             WebResponse response = await request.GetResponseAsync();
             // Display the status.
-
+            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
             // Get the stream containing content returned by the server.
             Stream dataStream = response.GetResponseStream();
             // Open the stream using a StreamReader for easy access.
@@ -46,11 +50,16 @@ namespace vaConnect
             String responseFromServer = reader.ReadToEnd();
            
 
-            z = JsonConvert.DeserializeObject<WiFiProfile>(responseFromServer);
+            inner = JsonConvert.DeserializeObject<WiFiProfile>(responseFromServer);
 
             // Clean up the streams and the response.
             //  reader
             //   response.Close();
+        }
+        public WiFiProfile getProfile()
+        {
+
+            return inner;
         }
     }
 }

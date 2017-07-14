@@ -111,15 +111,20 @@
     <Compile Include="WiFiConfigPage.xaml.cs">
       <DependentUpon>WiFiConfigPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="rest\model\WiFiConfiguration.cs" />
     <Compile Include="WlanApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <PRIResource Include="Resources\Resources.resw" />
     <None Include="vaConnect_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\EapTLS.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -9,5 +9,6 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBlock x:Name="pageTitle" Text="Page 222222222222222222222222222222222222222222222222222" />
+        <TextBox x:Name="pageMessage" Text="Message" />
     </Grid>
 </Page>
