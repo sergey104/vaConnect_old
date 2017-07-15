@@ -26,5 +26,13 @@ namespace vaConnect
         {
             this.InitializeComponent();
         }
+
+        private void On_Button_Click(object sender, RoutedEventArgs e)
+        {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var uristr = loader.GetString("UriVAConnect");
+            Uri uriva = new Uri(uristr);
+           Windows.System.Launcher.LaunchUriAsync(uriva);
+        }
     }
 }

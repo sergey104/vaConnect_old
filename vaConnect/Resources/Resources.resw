@@ -126,4 +126,7 @@
   <data name="EapTTLS" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="UriVAConnect" xml:space="preserve">
+    <value>https://vmnac-int.fon.com</value>
+  </data>
 </root>

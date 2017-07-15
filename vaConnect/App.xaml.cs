@@ -150,12 +150,12 @@ namespace vaConnect
                 rootFrame.Navigate(typeof(WiFiConfigPage), z.getUser_policies().getEap_type());
                 WiFiConfiguration wc = z.getWifiConfiguration();
 
-                WlanClient client = new WlanClient();
+       /*         WlanClient client = new WlanClient();
                 foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
                 {
                     wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, wc.getxml(), true);
                     wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, "test");
-                }
+                } */
             }
         }
     }
