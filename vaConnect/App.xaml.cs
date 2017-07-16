@@ -101,13 +101,13 @@ namespace vaConnect
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
-        protected override void OnActivated(IActivatedEventArgs args)
+        protected override async void  OnActivated(IActivatedEventArgs args)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+          if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
@@ -132,7 +132,7 @@ namespace vaConnect
 
             }
             // Ensure the current window is active
-            Window.Current.Activate();
+            Window.Current.Activate(); 
             if (args.Kind == ActivationKind.Protocol)
             {
                 // System.IO.File.WriteAllText("D:\\WriteText.txt", "inside");
@@ -145,17 +145,19 @@ namespace vaConnect
                 String identifier = decoder.GetFirstValueByName("identifier");
                 WiFiProfile z = new WiFiProfile();
 
-                OnboardingService.getInstance().getWiFiProfile(token, identifier);
-                z = OnboardingService.getInstance().getProfile();
+                z = await OnboardingService.getInstance().getWiFiProfileAsync(token, identifier);
+                
+               // z = OnboardingService.getInstance().getWiFiProfile();
                 rootFrame.Navigate(typeof(WiFiConfigPage), z.getUser_policies().getEap_type());
                 WiFiConfiguration wc = z.getWifiConfiguration();
+                Window.Current.Activate();
 
-       /*         WlanClient client = new WlanClient();
-                foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
-                {
-                    wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, wc.getxml(), true);
-                    wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, "test");
-                } */
+                /*         WlanClient client = new WlanClient();
+                         foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
+                         {
+                             wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, wc.getxml(), true);
+                             wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, "test");
+                         } */
             }
         }
     }

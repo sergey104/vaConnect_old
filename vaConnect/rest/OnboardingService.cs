@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
+using System.Threading;
 using NativeWifi;
 namespace vaConnect
 {
     class OnboardingService
     {
         private static OnboardingService instance;
+        
         public WiFiProfile inner;
         private OnboardingService()
         {
@@ -24,24 +26,24 @@ namespace vaConnect
             if (instance == null)
             {
                 instance = new OnboardingService();
+                
             }
             return instance;
         }
-        public async void getWiFiProfile(String token, String identifier)
+        public async Task< WiFiProfile> getWiFiProfileAsync(String token, String identifier)
         {
             
             Uri baseUri = new Uri("https://vmnac-int.fon.com/onboarding/windows/result/");
             String add = "?token=" + token + "&identifier=" + identifier;
             Uri myUri = new Uri(baseUri, add);
             // Create a request for the URL. 
-            WebRequest request = WebRequest.Create(
-              myUri);
+            WebRequest request = WebRequest.Create(myUri);
             // If required by the server, set the credentials.
             request.Credentials = CredentialCache.DefaultCredentials;
             // Get the response.
             WebResponse response = await request.GetResponseAsync();
             // Display the status.
-            Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+            //Console.WriteLine(((HttpWebResponse)response).StatusDescription);
             // Get the stream containing content returned by the server.
             Stream dataStream = response.GetResponseStream();
             // Open the stream using a StreamReader for easy access.
@@ -55,6 +57,7 @@ namespace vaConnect
             // Clean up the streams and the response.
             //  reader
             //   response.Close();
+            return inner;
         }
         public WiFiProfile getProfile()
         {
