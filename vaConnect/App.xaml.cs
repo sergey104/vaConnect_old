@@ -19,6 +19,9 @@ using Windows.UI.ViewManagement;
 using System.Security.Cryptography.X509Certificates;
 using Windows.Security.Cryptography.Certificates;
 using Windows.Devices.WiFi;
+using System.Threading.Tasks;
+using Windows.Security.Credentials;
+
 namespace vaConnect
 {
     /// <summary>
@@ -110,10 +113,11 @@ namespace vaConnect
         protected override async void  OnActivated(IActivatedEventArgs args)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
+            WiFiAdapter firstAdapter;
+            WiFiConnectionResult result1;
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-          if (rootFrame == null)
+            if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
@@ -138,10 +142,10 @@ namespace vaConnect
 
             }
             // Ensure the current window is active
-            Window.Current.Activate(); 
+            Window.Current.Activate();
             if (args.Kind == ActivationKind.Protocol)
             {
-                
+
                 // System.IO.File.WriteAllText("D:\\WriteText.txt", "inside");
                 ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
                 // TODO: Handle URI activation
@@ -155,8 +159,8 @@ namespace vaConnect
                 z = await OnboardingService.getInstance().getWiFiProfileAsync(token, identifier);
 
                 // z = OnboardingService.getInstance().getWiFiProfile();
-                    rootFrame.Navigate(typeof(WiFiConfigPage), z.getUser_policies().getEap_type());
-                
+                rootFrame.Navigate(typeof(WiFiConfigPage), z.getUser_policies().getEap_type());
+                System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(5));
                 WiFiConfiguration wc = z.getWifiConfiguration();
                 Window.Current.Activate();
                 await CertificateEnrollmentManager.UserCertificateEnrollmentManager.ImportPfxDataAsync(
@@ -166,14 +170,65 @@ namespace vaConnect
                             KeyProtectionLevel.NoConsent,
                             InstallOptions.None,
                             "Test");
-               
-                         WlanClient client = new WlanClient();
-                         foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
-                         {
-                             wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, wc.getxml(), true);
-                             wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, "test");
-                         }
-            }
+
+                /*      WlanClient client = new WlanClient();
+                      foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
+                      {
+                          wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, wc.getxml(), true);
+                          wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, "test");
+                      } */
+                var access = await WiFiAdapter.RequestAccessAsync();
+                if (access != WiFiAccessStatus.Allowed)
+                {
+                    // TODO: throw exception? exit the current process? User denied access
+                }
+                else
+                {
+                    var result = await Windows.Devices.Enumeration.DeviceInformation.
+                            FindAllAsync(WiFiAdapter.GetDeviceSelector());
+                    if (result.Count >= 1)
+                    {
+                        firstAdapter = await WiFiAdapter.FromIdAsync(result[0].Id);
+                        await firstAdapter.ScanAsync();
+                        var report = firstAdapter.NetworkReport;
+                        //   var message = string.Format("Network Report Timestamp: { 0}", report.Timestamp);
+                        var message = " ";
+                        foreach (var network in report.AvailableNetworks)
+                        {
+                            //Format the network information
+                               message += string.Format("NetworkName: {0}", network.Ssid);
+                           
+                           
+                        }
+                        rootFrame.Navigate(typeof(WiFiConfigPage), message);
+
+
+                        
+                        if (report.AvailableNetwork.SecuritySettings.NetworkAuthenticationType == Windows.Networking.Connectivity.NetworkAuthenticationType.Open80211)
+                        {
+                            result = await firstAdapter.ConnectAsync(selectedNetwork.AvailableNetwork, reconnectionKind);
+                        }
+                        else
+                        {
+                            // Only the password potion of the credential need to be supplied
+                            var credential = new PasswordCredential();
+                            credential.Password = NetworkKey.Password;
+
+                            result = await firstAdapter.ConnectAsync(selectedNetwork.AvailableNetwork, reconnectionKind, credential);
+                        }
+
+                    }
+                    else
+                    {
+                        // TODO: throw exception? dialog? no Wi-Fi adapters.
+                    }
+                }
+                //////////////////////////////
+            }             
+
+                
+
+                
         }
     }
 }

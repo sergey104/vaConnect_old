@@ -28,6 +28,7 @@ namespace vaConnect
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            this.InitializeComponent();
             if (e.Parameter is string && !string.IsNullOrWhiteSpace((string)e.Parameter))
             {
                 pageMessage.Text = $"Hi, {e.Parameter.ToString()}";
