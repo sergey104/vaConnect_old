@@ -122,6 +122,7 @@
     <None Include="vaConnect_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\fon_logo.png" />
     <Content Include="Resources\EapTLS.xml">
       <SubType>Designer</SubType>
     </Content>

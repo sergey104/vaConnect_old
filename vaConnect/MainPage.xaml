@@ -5,14 +5,44 @@
     xmlns:local="using:vaConnect"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" HorizontalAlignment="Center">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock x:Name="pageTitle" Text="Page 11111111111111111111111111111111111" />
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1200" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="LayoutRoot.Background" Value="#1E90FF" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="MidState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="LayoutRoot.Background" Value="#00BFFF" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="LayoutRoot.Background" Value="#6495ED" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+
+        <TextBlock x:Name="pageTitle" Text="Welcome to Device Onboarding" />
 
         <Button Content="START"
                  
                  HorizontalAlignment="Center" RenderTransformOrigin="0.562,3.833" Margin="109,435,98,173" Width="153" Background="#99EE890F" BorderBrush="#FFB86009" Click="On_Button_Click"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="141" Margin="109,217,0,0" VerticalAlignment="Top" Width="153"/>
+        <Image x:Name="frontimage" HorizontalAlignment="Center" Height="141" Margin="109,221,98,0" VerticalAlignment="Top" Width="153" Source="/Images/fon_logo.png"/>
     </Grid>
 </Page>

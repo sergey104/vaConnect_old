@@ -25,6 +25,7 @@ namespace vaConnect
         public MainPage()
         {
             this.InitializeComponent();
+            
         }
 
         private void On_Button_Click(object sender, RoutedEventArgs e)

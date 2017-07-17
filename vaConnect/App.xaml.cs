@@ -15,7 +15,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using NativeWifi;
-
+using Windows.UI.ViewManagement;
+using System.Security.Cryptography.X509Certificates;
+using Windows.Security.Cryptography.Certificates;
 namespace vaConnect
 {
     /// <summary>
@@ -31,6 +33,8 @@ namespace vaConnect
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+          //  ApplicationView.PreferredLaunchViewSize = new Size(100, 1200);
+         //   ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
         }
 
@@ -146,12 +150,20 @@ namespace vaConnect
                 WiFiProfile z = new WiFiProfile();
 
                 z = await OnboardingService.getInstance().getWiFiProfileAsync(token, identifier);
+
+                // z = OnboardingService.getInstance().getWiFiProfile();
+                    rootFrame.Navigate(typeof(WiFiConfigPage), z.getUser_policies().getEap_type());
                 
-               // z = OnboardingService.getInstance().getWiFiProfile();
-                rootFrame.Navigate(typeof(WiFiConfigPage), z.getUser_policies().getEap_type());
                 WiFiConfiguration wc = z.getWifiConfiguration();
                 Window.Current.Activate();
-
+                await CertificateEnrollmentManager.UserCertificateEnrollmentManager.ImportPfxDataAsync(
+                            z.getUser_policies().getPublic_ca(),
+                            "",
+                            ExportOption.NotExportable,
+                            KeyProtectionLevel.NoConsent,
+                            InstallOptions.None,
+                            "Test");
+               
                 /*         WlanClient client = new WlanClient();
                          foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
                          {
