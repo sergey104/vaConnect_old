@@ -18,6 +18,7 @@ using NativeWifi;
 using Windows.UI.ViewManagement;
 using System.Security.Cryptography.X509Certificates;
 using Windows.Security.Cryptography.Certificates;
+using Windows.Devices.WiFi;
 namespace vaConnect
 {
     /// <summary>
@@ -25,6 +26,7 @@ namespace vaConnect
     /// </summary>
     sealed partial class App : Application
     {
+        
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -33,9 +35,9 @@ namespace vaConnect
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-          //  ApplicationView.PreferredLaunchViewSize = new Size(100, 1200);
-         //   ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-
+            //  ApplicationView.PreferredLaunchViewSize = new Size(100, 1200);
+            //   ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+            
         }
 
         /// <summary>
@@ -139,6 +141,7 @@ namespace vaConnect
             Window.Current.Activate(); 
             if (args.Kind == ActivationKind.Protocol)
             {
+                
                 // System.IO.File.WriteAllText("D:\\WriteText.txt", "inside");
                 ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
                 // TODO: Handle URI activation

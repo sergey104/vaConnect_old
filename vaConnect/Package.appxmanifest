@@ -30,8 +30,11 @@
   <Capabilities>
     <Capability Name="internetClient" />
     <Capability Name="privateNetworkClientServer" />
+    <Capability Name="internetClientServer" />
+    <Capability Name="allJoyn" />
     <uap:Capability Name="sharedUserCertificates" />
     <uap:Capability Name="enterpriseAuthentication" />
     <uap:Capability Name="userAccountInformation" />
+  <DeviceCapability Name="wiFiControl" />
   </Capabilities>
 </Package>
