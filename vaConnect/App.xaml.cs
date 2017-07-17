@@ -21,6 +21,7 @@ using Windows.Security.Cryptography.Certificates;
 using Windows.Devices.WiFi;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
+using System.Collections.ObjectModel;
 
 namespace vaConnect
 {
@@ -115,6 +116,7 @@ namespace vaConnect
             Frame rootFrame = Window.Current.Content as Frame;
             WiFiAdapter firstAdapter;
             WiFiConnectionResult result1;
+            ObservableCollection<WiFiNetworkDisplay> ResultCollection;
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -171,12 +173,7 @@ namespace vaConnect
                             InstallOptions.None,
                             "Test");
 
-                /*      WlanClient client = new WlanClient();
-                      foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
-                      {
-                          wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, wc.getxml(), true);
-                          wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, "test");
-                      } */
+                
                 var access = await WiFiAdapter.RequestAccessAsync();
                 if (access != WiFiAccessStatus.Allowed)
                 {
@@ -193,6 +190,7 @@ namespace vaConnect
                         var report = firstAdapter.NetworkReport;
                         //   var message = string.Format("Network Report Timestamp: { 0}", report.Timestamp);
                         var message = " ";
+                        ResultCollection.Clear();
                         foreach (var network in report.AvailableNetworks)
                         {
                             //Format the network information
@@ -203,8 +201,10 @@ namespace vaConnect
                         rootFrame.Navigate(typeof(WiFiConfigPage), message);
 
 
+
+
                         
-                        if (report.AvailableNetwork.SecuritySettings.NetworkAuthenticationType == Windows.Networking.Connectivity.NetworkAuthenticationType.Open80211)
+                        if (.AvailableNetwork.SecuritySettings.NetworkAuthenticationType == Windows.Networking.Connectivity.NetworkAuthenticationType.Open80211)
                         {
                             result = await firstAdapter.ConnectAsync(selectedNetwork.AvailableNetwork, reconnectionKind);
                         }
@@ -215,6 +215,20 @@ namespace vaConnect
                             credential.Password = NetworkKey.Password;
 
                             result = await firstAdapter.ConnectAsync(selectedNetwork.AvailableNetwork, reconnectionKind, credential);
+                        }
+
+                        if (result.ConnectionStatus == WiFiConnectionStatus.Success)
+                        {
+                            rootPage.NotifyUser(string.Format("Successfully connected to {0}.", selectedNetwork.Ssid), NotifyType.StatusMessage);
+
+                            // refresh the webpage
+                            webViewGrid.Visibility = Visibility.Visible;
+                            toggleBrowserButton.Content = "Hide Browser Control";
+                            refreshBrowserButton.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            rootPage.NotifyUser(string.Format("Could not connect to {0}. Error: {1}", selectedNetwork.Ssid, result.ConnectionStatus), NotifyType.ErrorMessage);
                         }
 
                     }

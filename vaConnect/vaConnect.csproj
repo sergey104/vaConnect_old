@@ -98,6 +98,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DisplayHelpers.cs" />
     <Compile Include="eap\EapPEAP.cs" />
     <Compile Include="eap\EapTTLS.cs" />
     <Compile Include="eap\EapTLS.cs" />
