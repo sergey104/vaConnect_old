@@ -118,13 +118,382 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EapPEAP" xml:space="preserve">
-    <value>3</value>
+    <value>&lt;?xml version="1.0"?&gt;
+
+-&lt;WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"&gt;
+
+&lt;name&gt;vmnac&lt;/name&gt;
+
+
+-&lt;SSIDConfig&gt;
+
+
+-&lt;SSID&gt;
+
+&lt;hex&gt;766D6E6163&lt;/hex&gt;
+
+&lt;name&gt;vmnac&lt;/name&gt;
+
+&lt;/SSID&gt;
+
+&lt;nonBroadcast&gt;false&lt;/nonBroadcast&gt;
+
+&lt;/SSIDConfig&gt;
+
+&lt;connectionType&gt;ESS&lt;/connectionType&gt;
+
+&lt;connectionMode&gt;auto&lt;/connectionMode&gt;
+
+&lt;autoSwitch&gt;false&lt;/autoSwitch&gt;
+
+
+-&lt;MSM&gt;
+
+
+-&lt;security&gt;
+
+
+-&lt;authEncryption&gt;
+
+&lt;authentication&gt;WPA2&lt;/authentication&gt;
+
+&lt;encryption&gt;AES&lt;/encryption&gt;
+
+&lt;useOneX&gt;true&lt;/useOneX&gt;
+
+&lt;/authEncryption&gt;
+
+
+-&lt;OneX xmlns="http://www.microsoft.com/networking/OneX/v1"&gt;
+
+&lt;cacheUserData&gt;true&lt;/cacheUserData&gt;
+
+&lt;authMode&gt;user&lt;/authMode&gt;
+
+
+-&lt;EAPConfig&gt;
+
+
+-&lt;EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig"&gt;
+
+
+-&lt;EapMethod&gt;
+
+&lt;Type xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;21&lt;/Type&gt;
+
+&lt;VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;0&lt;/VendorId&gt;
+
+&lt;VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;0&lt;/VendorType&gt;
+
+&lt;AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;311&lt;/AuthorId&gt;
+
+&lt;/EapMethod&gt;
+
+
+-&lt;Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig"&gt;
+
+
+-&lt;EapTtls xmlns="http://www.microsoft.com/provisioning/EapTtlsConnectionPropertiesV1"&gt;
+
+
+-&lt;ServerValidation&gt;
+
+&lt;ServerNames/&gt;
+
+&lt;TrustedRootCAHash&gt;2 fa f3 e2 91 43 54 68 60 78 57 69 4d f5 e4 5b 68 85 18 68&lt;/TrustedRootCAHash&gt;
+
+&lt;TrustedRootCAHash&gt;9e bd f0 91 4e 23 78 c0 c3 47 df 13 a0 b0 b8 3 ba 1f 5f 2a a7 48 2c af 64 82 8c b0 a3 1c df 24&lt;/TrustedRootCAHash&gt;
+
+&lt;DisablePrompt&gt;false&lt;/DisablePrompt&gt;
+
+&lt;/ServerValidation&gt;
+
+
+-&lt;Phase2Authentication&gt;
+
+
+-&lt;MSCHAPv2Authentication&gt;
+
+&lt;UseWinlogonCredentials&gt;false&lt;/UseWinlogonCredentials&gt;
+
+&lt;/MSCHAPv2Authentication&gt;
+
+&lt;/Phase2Authentication&gt;
+
+
+-&lt;Phase1Identity&gt;
+
+&lt;IdentityPrivacy&gt;false&lt;/IdentityPrivacy&gt;
+
+&lt;/Phase1Identity&gt;
+
+&lt;/EapTtls&gt;
+
+&lt;/Config&gt;
+
+&lt;/EapHostConfig&gt;
+
+&lt;/EAPConfig&gt;
+
+&lt;/OneX&gt;
+
+&lt;/security&gt;
+
+&lt;/MSM&gt;
+
+&lt;/WLANProfile&gt;</value>
   </data>
   <data name="EapTLS" xml:space="preserve">
-    <value>2</value>
+    <value>&lt;?xml version="1.0"?&gt;
+
+-&lt;WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"&gt;
+
+&lt;name&gt;vmnac&lt;/name&gt;
+
+
+-&lt;SSIDConfig&gt;
+
+
+-&lt;SSID&gt;
+
+&lt;hex&gt;766D6E6163&lt;/hex&gt;
+
+&lt;name&gt;vmnac&lt;/name&gt;
+
+&lt;/SSID&gt;
+
+&lt;nonBroadcast&gt;false&lt;/nonBroadcast&gt;
+
+&lt;/SSIDConfig&gt;
+
+&lt;connectionType&gt;ESS&lt;/connectionType&gt;
+
+&lt;connectionMode&gt;auto&lt;/connectionMode&gt;
+
+&lt;autoSwitch&gt;false&lt;/autoSwitch&gt;
+
+
+-&lt;MSM&gt;
+
+
+-&lt;security&gt;
+
+
+-&lt;authEncryption&gt;
+
+&lt;authentication&gt;WPA2&lt;/authentication&gt;
+
+&lt;encryption&gt;AES&lt;/encryption&gt;
+
+&lt;useOneX&gt;true&lt;/useOneX&gt;
+
+&lt;/authEncryption&gt;
+
+
+-&lt;OneX xmlns="http://www.microsoft.com/networking/OneX/v1"&gt;
+
+&lt;cacheUserData&gt;true&lt;/cacheUserData&gt;
+
+&lt;authMode&gt;user&lt;/authMode&gt;
+
+
+-&lt;EAPConfig&gt;
+
+
+-&lt;EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig"&gt;
+
+
+-&lt;EapMethod&gt;
+
+&lt;Type xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;21&lt;/Type&gt;
+
+&lt;VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;0&lt;/VendorId&gt;
+
+&lt;VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;0&lt;/VendorType&gt;
+
+&lt;AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;311&lt;/AuthorId&gt;
+
+&lt;/EapMethod&gt;
+
+
+-&lt;Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig"&gt;
+
+
+-&lt;EapTtls xmlns="http://www.microsoft.com/provisioning/EapTtlsConnectionPropertiesV1"&gt;
+
+
+-&lt;ServerValidation&gt;
+
+&lt;ServerNames/&gt;
+
+&lt;TrustedRootCAHash&gt;2 fa f3 e2 91 43 54 68 60 78 57 69 4d f5 e4 5b 68 85 18 68&lt;/TrustedRootCAHash&gt;
+
+&lt;TrustedRootCAHash&gt;9e bd f0 91 4e 23 78 c0 c3 47 df 13 a0 b0 b8 3 ba 1f 5f 2a a7 48 2c af 64 82 8c b0 a3 1c df 24&lt;/TrustedRootCAHash&gt;
+
+&lt;DisablePrompt&gt;false&lt;/DisablePrompt&gt;
+
+&lt;/ServerValidation&gt;
+
+
+-&lt;Phase2Authentication&gt;
+
+
+-&lt;MSCHAPv2Authentication&gt;
+
+&lt;UseWinlogonCredentials&gt;false&lt;/UseWinlogonCredentials&gt;
+
+&lt;/MSCHAPv2Authentication&gt;
+
+&lt;/Phase2Authentication&gt;
+
+
+-&lt;Phase1Identity&gt;
+
+&lt;IdentityPrivacy&gt;false&lt;/IdentityPrivacy&gt;
+
+&lt;/Phase1Identity&gt;
+
+&lt;/EapTtls&gt;
+
+&lt;/Config&gt;
+
+&lt;/EapHostConfig&gt;
+
+&lt;/EAPConfig&gt;
+
+&lt;/OneX&gt;
+
+&lt;/security&gt;
+
+&lt;/MSM&gt;
+
+&lt;/WLANProfile&gt;</value>
   </data>
   <data name="EapTTLS" xml:space="preserve">
-    <value>1</value>
+    <value>&lt;?xml version="1.0"?&gt;
+
+-&lt;WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"&gt;
+
+&lt;name&gt;vmnac&lt;/name&gt;
+
+
+-&lt;SSIDConfig&gt;
+
+
+-&lt;SSID&gt;
+
+&lt;hex&gt;766D6E6163&lt;/hex&gt;
+
+&lt;name&gt;vmnac&lt;/name&gt;
+
+&lt;/SSID&gt;
+
+&lt;nonBroadcast&gt;false&lt;/nonBroadcast&gt;
+
+&lt;/SSIDConfig&gt;
+
+&lt;connectionType&gt;ESS&lt;/connectionType&gt;
+
+&lt;connectionMode&gt;auto&lt;/connectionMode&gt;
+
+&lt;autoSwitch&gt;false&lt;/autoSwitch&gt;
+
+
+-&lt;MSM&gt;
+
+
+-&lt;security&gt;
+
+
+-&lt;authEncryption&gt;
+
+&lt;authentication&gt;WPA2&lt;/authentication&gt;
+
+&lt;encryption&gt;AES&lt;/encryption&gt;
+
+&lt;useOneX&gt;true&lt;/useOneX&gt;
+
+&lt;/authEncryption&gt;
+
+
+-&lt;OneX xmlns="http://www.microsoft.com/networking/OneX/v1"&gt;
+
+&lt;cacheUserData&gt;true&lt;/cacheUserData&gt;
+
+&lt;authMode&gt;user&lt;/authMode&gt;
+
+
+-&lt;EAPConfig&gt;
+
+
+-&lt;EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig"&gt;
+
+
+-&lt;EapMethod&gt;
+
+&lt;Type xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;21&lt;/Type&gt;
+
+&lt;VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;0&lt;/VendorId&gt;
+
+&lt;VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;0&lt;/VendorType&gt;
+
+&lt;AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon"&gt;311&lt;/AuthorId&gt;
+
+&lt;/EapMethod&gt;
+
+
+-&lt;Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig"&gt;
+
+
+-&lt;EapTtls xmlns="http://www.microsoft.com/provisioning/EapTtlsConnectionPropertiesV1"&gt;
+
+
+-&lt;ServerValidation&gt;
+
+&lt;ServerNames/&gt;
+
+&lt;TrustedRootCAHash&gt;2 fa f3 e2 91 43 54 68 60 78 57 69 4d f5 e4 5b 68 85 18 68&lt;/TrustedRootCAHash&gt;
+
+&lt;TrustedRootCAHash&gt;9e bd f0 91 4e 23 78 c0 c3 47 df 13 a0 b0 b8 3 ba 1f 5f 2a a7 48 2c af 64 82 8c b0 a3 1c df 24&lt;/TrustedRootCAHash&gt;
+
+&lt;DisablePrompt&gt;false&lt;/DisablePrompt&gt;
+
+&lt;/ServerValidation&gt;
+
+
+-&lt;Phase2Authentication&gt;
+
+
+-&lt;MSCHAPv2Authentication&gt;
+
+&lt;UseWinlogonCredentials&gt;false&lt;/UseWinlogonCredentials&gt;
+
+&lt;/MSCHAPv2Authentication&gt;
+
+&lt;/Phase2Authentication&gt;
+
+
+-&lt;Phase1Identity&gt;
+
+&lt;IdentityPrivacy&gt;false&lt;/IdentityPrivacy&gt;
+
+&lt;/Phase1Identity&gt;
+
+&lt;/EapTtls&gt;
+
+&lt;/Config&gt;
+
+&lt;/EapHostConfig&gt;
+
+&lt;/EAPConfig&gt;
+
+&lt;/OneX&gt;
+
+&lt;/security&gt;
+
+&lt;/MSM&gt;
+
+&lt;/WLANProfile&gt;</value>
   </data>
   <data name="UriVAConnect" xml:space="preserve">
     <value>https://vmnac-int.fon.com</value>

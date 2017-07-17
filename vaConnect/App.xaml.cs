@@ -164,12 +164,12 @@ namespace vaConnect
                             InstallOptions.None,
                             "Test");
                
-                /*         WlanClient client = new WlanClient();
+                         WlanClient client = new WlanClient();
                          foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
                          {
                              wlanIface.SetProfile(Wlan.WlanProfileFlags.AllUser, wc.getxml(), true);
                              wlanIface.Connect(Wlan.WlanConnectionMode.Profile, Wlan.Dot11BssType.Any, "test");
-                         } */
+                         }
             }
         }
     }
