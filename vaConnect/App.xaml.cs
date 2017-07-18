@@ -195,40 +195,42 @@ namespace vaConnect
                         {
                             //Format the network information
                                message += string.Format("NetworkName: {0}", network.Ssid);
-                           
-                           
+                               ResultCollection.Add(new WiFiNetworkDisplay(network, firstAdapter));
+
                         }
                         rootFrame.Navigate(typeof(WiFiConfigPage), message);
 
+                        WiFiNetworkDisplay selectedNetwork = ResultCollection[0];
 
 
-
-                        
-                        if (.AvailableNetwork.SecuritySettings.NetworkAuthenticationType == Windows.Networking.Connectivity.NetworkAuthenticationType.Open80211)
+                        WiFiConnectionResult result0;
+                        WiFiReconnectionKind reconnectionKind = WiFiReconnectionKind.Manual;
+                        if (selectedNetwork.AvailableNetwork.SecuritySettings.NetworkAuthenticationType == Windows.Networking.Connectivity.NetworkAuthenticationType.Open80211)
                         {
-                            result = await firstAdapter.ConnectAsync(selectedNetwork.AvailableNetwork, reconnectionKind);
+                            result0 = await firstAdapter.ConnectAsync(selectedNetwork.AvailableNetwork, reconnectionKind);
                         }
                         else
                         {
                             // Only the password potion of the credential need to be supplied
                             var credential = new PasswordCredential();
-                            credential.Password = NetworkKey.Password;
+                            String Password = "passIimpf2soppistmmrtw";
+                            credential.Password = Password;
 
-                            result = await firstAdapter.ConnectAsync(selectedNetwork.AvailableNetwork, reconnectionKind, credential);
+                            result0 = await firstAdapter.ConnectAsync(selectedNetwork.AvailableNetwork, reconnectionKind, credential);
                         }
 
-                        if (result.ConnectionStatus == WiFiConnectionStatus.Success)
+                        if (result0.ConnectionStatus == WiFiConnectionStatus.Success)
                         {
-                            rootPage.NotifyUser(string.Format("Successfully connected to {0}.", selectedNetwork.Ssid), NotifyType.StatusMessage);
+                            rootFrame.Navigate(typeof(WiFiConfigPage),string.Format("Successfully connected to {0}.", selectedNetwork.Ssid));
 
                             // refresh the webpage
-                            webViewGrid.Visibility = Visibility.Visible;
-                            toggleBrowserButton.Content = "Hide Browser Control";
-                            refreshBrowserButton.Visibility = Visibility.Visible;
+                           // webViewGrid.Visibility = Visibility.Visible;
+                          //  toggleBrowserButton.Content = "Hide Browser Control";
+                          //  refreshBrowserButton.Visibility = Visibility.Visible;
                         }
                         else
                         {
-                            rootPage.NotifyUser(string.Format("Could not connect to {0}. Error: {1}", selectedNetwork.Ssid, result.ConnectionStatus), NotifyType.ErrorMessage);
+                            rootFrame.Navigate(typeof(WiFiConfigPage),string.Format("Could not connect to {0}. Error: {1}", selectedNetwork.Ssid, result0.ConnectionStatus));
                         }
 
                     }
