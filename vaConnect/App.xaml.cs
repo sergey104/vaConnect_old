@@ -116,7 +116,7 @@ namespace vaConnect
             Frame rootFrame = Window.Current.Content as Frame;
             WiFiAdapter firstAdapter;
             WiFiConnectionResult result1;
-            ObservableCollection<WiFiNetworkDisplay> ResultCollection;
+            ObservableCollection<WiFiNetworkDisplay> ResultCollection = new ObservableCollection<WiFiNetworkDisplay>();
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
