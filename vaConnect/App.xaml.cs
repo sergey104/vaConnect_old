@@ -280,7 +280,7 @@ namespace vaConnect
                             {
                                 parameters.Clear();
                                 parameters.Notification = "Not implemented yet";
-                                parameters.Result = "System waninbg!";
+                                parameters.Result = "System warning!";
                                 rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
 
                                 break;
