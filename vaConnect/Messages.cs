@@ -8,15 +8,15 @@ namespace vaConnect
 {
     public class Messages
     {
-       private String Notification { get; set; }
-        private String Result { get; set; }
+       public String Notification { get; set; }
+       public String Result { get; set; }
 
-        Messages()
+        public Messages()
         {
             Notification = "";
             Result = "";
         }
-        Messages(String n, String r)
+        public Messages(String n, String r)
         {
             Notification = n;
             Result = r;

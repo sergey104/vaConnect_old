@@ -29,13 +29,15 @@ namespace vaConnect
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.InitializeComponent();
-            if (e.Parameter is string && !string.IsNullOrWhiteSpace((string)e.Parameter))
+            if (e.Parameter != null)
             {
-                pageMessage.Text = $"Hi, {e.Parameter.ToString()}";
+                var par = (Messages)e.Parameter;
+                pageMessage.Text = par.Notification.ToString();
+                pageResult.Text = par.Result.ToString();
             }
             else
             {
-                pageMessage.Text = "Hi!";
+                pageMessage.Text = "";
             }
             base.OnNavigatedTo(e);
         }

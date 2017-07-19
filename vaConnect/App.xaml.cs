@@ -113,6 +113,7 @@ namespace vaConnect
         }
         protected override async void  OnActivated(IActivatedEventArgs args)
         {
+            Messages parameters = new Messages();
             Frame rootFrame = Window.Current.Content as Frame;
             WiFiAdapter firstAdapter;
             WiFiConnectionResult result1;
@@ -156,12 +157,13 @@ namespace vaConnect
                 WwwFormUrlDecoder decoder = new WwwFormUrlDecoder(myUri1.Query);
                 String token = decoder.GetFirstValueByName("token");
                 String identifier = decoder.GetFirstValueByName("identifier");
+                int numVal = Int32.Parse("identifier");
                 WiFiProfile z = new WiFiProfile();
 
                 z = await OnboardingService.getInstance().getWiFiProfileAsync(token, identifier);
 
-             
-                rootFrame.Navigate(typeof(WiFiConfigPage), z.getUser_policies().getEap_type());
+                parameters.Notification = "Start connecting to " + z.getUser_policies().getEap_type() + " network.";
+                rootFrame.Navigate(typeof(WiFiConfigPage),parameters );
                 System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(5));
                 WiFiConfiguration wc = z.getWifiConfiguration();
                 Window.Current.Activate();
@@ -177,10 +179,16 @@ namespace vaConnect
                 var access = await WiFiAdapter.RequestAccessAsync();
                 if (access != WiFiAccessStatus.Allowed)
                 {
-                    // TODO: throw exception? exit the current process? User denied access
+                    parameters.Clear();
+                    parameters.Notification = "No WiFi Adapter. Or access is denied!";
+                    parameters.Result = "System error!";
+                    rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
+                    return;
                 }
                 else
-                {
+                { ////////////////////////////////////////////////////////////////////
+
+                    //EAP-TTLS
                     var result = await Windows.Devices.Enumeration.DeviceInformation.
                             FindAllAsync(WiFiAdapter.GetDeviceSelector());
                     if (result.Count >= 1)
@@ -189,16 +197,19 @@ namespace vaConnect
                         await firstAdapter.ScanAsync();
                         var report = firstAdapter.NetworkReport;
                         //   var message = string.Format("Network Report Timestamp: { 0}", report.Timestamp);
-                        var message = " ";
+                        var message = "Find  ";
                         ResultCollection.Clear();
                         foreach (var network in report.AvailableNetworks)
                         {
                             //Format the network information
-                               message += string.Format("NetworkName: {0}", network.Ssid);
+                               message += string.Format("NetworkName: {0}\n", network.Ssid);
                                ResultCollection.Add(new WiFiNetworkDisplay(network, firstAdapter));
 
                         }
-                        rootFrame.Navigate(typeof(WiFiConfigPage), message);
+
+                        parameters.Clear();
+                        parameters.Notification = message;
+                        rootFrame.Navigate(typeof(WiFiConfigPage),parameters );
 
                         WiFiNetworkDisplay selectedNetwork = ResultCollection[0];
 
@@ -221,7 +232,10 @@ namespace vaConnect
 
                         if (result0.ConnectionStatus == WiFiConnectionStatus.Success)
                         {
-                            rootFrame.Navigate(typeof(WiFiConfigPage),string.Format("Successfully connected to {0}.", selectedNetwork.Ssid));
+                            parameters.Clear();
+                            parameters.Notification = string.Format("Successfully connected to {0}.", selectedNetwork.Ssid);
+                            parameters.Result = "Success!";
+                            rootFrame.Navigate(typeof(WiFiConfigPage),parameters);
 
                             // refresh the webpage
                            // webViewGrid.Visibility = Visibility.Visible;
@@ -230,13 +244,20 @@ namespace vaConnect
                         }
                         else
                         {
-                            rootFrame.Navigate(typeof(WiFiConfigPage),string.Format("Could not connect to {0}. Error: {1}", selectedNetwork.Ssid, result0.ConnectionStatus));
+                            parameters.Clear();
+                            parameters.Result = "Error!";
+                            parameters.Notification = string.Format("Could not connect to {0}. Error: {1}", selectedNetwork.Ssid, result0.ConnectionStatus);
+                            rootFrame.Navigate(typeof(WiFiConfigPage),parameters);
                         }
 
                     }
                     else
                     {
-                        // TODO: throw exception? dialog? no Wi-Fi adapters.
+                        parameters.Clear();
+                        parameters.Notification = "No WiFi Adapter. Or access is denied!";
+                        parameters.Result = "System error!";
+                        rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
+                        return;
                     }
                 }
                 //////////////////////////////
