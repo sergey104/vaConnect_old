@@ -14,7 +14,8 @@
                 <GradientStop Color="White" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        
-        <TextBox x:Name="pageMessage" Text="Message" Width="211.57470703125" Height="19.951171875" />
+
+        <TextBlock x:Name="pageMessage" Text="Message" Height="19.951171875" Margin="10,145,10,463" Foreground="#FFF0EFE8" />
+        <TextBlock x:Name="pageTitle" Text="Welcome to Device Onboarding" Foreground="#FFF0EFE8" FontSize="22" FontWeight="Bold" FontFamily="Calibri" Opacity="0.75" Margin="5,5,5,1" />
     </Grid>
 </Page>

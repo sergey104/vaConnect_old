@@ -148,9 +148,9 @@ namespace vaConnect
             if (args.Kind == ActivationKind.Protocol)
             {
 
-                // System.IO.File.WriteAllText("D:\\WriteText.txt", "inside");
+                
                 ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                // TODO: Handle URI activation
+                // Handle URI activation
                 // The received URI is eventArgs.Uri.AbsoluteUri
                 Uri myUri1 = new Uri(eventArgs.Uri.AbsoluteUri);
                 WwwFormUrlDecoder decoder = new WwwFormUrlDecoder(myUri1.Query);
@@ -160,7 +160,7 @@ namespace vaConnect
 
                 z = await OnboardingService.getInstance().getWiFiProfileAsync(token, identifier);
 
-                // z = OnboardingService.getInstance().getWiFiProfile();
+             
                 rootFrame.Navigate(typeof(WiFiConfigPage), z.getUser_policies().getEap_type());
                 System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(5));
                 WiFiConfiguration wc = z.getWifiConfiguration();
