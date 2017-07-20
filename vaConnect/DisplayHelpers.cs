@@ -14,6 +14,7 @@ namespace vaConnect
 {
     public class WiFiNetworkDisplay : INotifyPropertyChanged
     {
+        // Test
         private WiFiAdapter adapter;
         public WiFiNetworkDisplay(WiFiAvailableNetwork availableNetwork, WiFiAdapter adapter)
         {
