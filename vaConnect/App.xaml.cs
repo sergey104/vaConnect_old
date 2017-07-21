@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using Windows.Security.Credentials;
 using System.Collections.ObjectModel;
 
+
 namespace vaConnect
 {
     /// <summary>
@@ -161,8 +162,20 @@ namespace vaConnect
                 String password;
                 int numVal = Int32.Parse(identifier);
                 WiFiProfile z = new WiFiProfile();
-
-                z = await OnboardingService.getInstance().getWiFiProfileAsync(token, identifier);
+                try
+                {
+                    z = await OnboardingService.getInstance().getWiFiProfileAsync(token, identifier);
+                }
+                catch
+                {
+                    
+                        parameters.Clear();
+                        parameters.Notification = "Cannot get network profile " ;
+                        parameters.Result = "Net or system error!";
+                        rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
+                        return;
+                    
+                }
                 Ssid = z.getUser_policies().getSsid();
                 parameters.Notification = "Start connecting to " + z.getUser_policies().getEap_type() + " network.";
                 rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
@@ -195,8 +208,7 @@ namespace vaConnect
                            ////////////////////////////////////////////////////////////////////
                        
                         //EAP-TTLS
-                        var result = await Windows.Devices.Enumeration.DeviceInformation.
-                        FindAllAsync(WiFiAdapter.GetDeviceSelector());
+                        var result = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(WiFiAdapter.GetDeviceSelector());
                         if (result.Count >= 1)
                         {
                             firstAdapter = await WiFiAdapter.FromIdAsync(result[0].Id);
@@ -208,26 +220,24 @@ namespace vaConnect
                             foreach (var network in report.AvailableNetworks)
                             {
                                 //Format the network information
-                                message += string.Format("NetworkName: {0}\n", network.Ssid);
+                                message += string.Format("NetworkName: {0}\n ", network.Ssid);
                                 ResultCollection.Add(new WiFiNetworkDisplay(network, firstAdapter));
 
                             }
-                            var q = ResultCollection.Where(X => X.Ssid == Ssid).FirstOrDefault();
-                            if(q == null)
-                                    {
-                                        parameters.Clear();
-                                        parameters.Notification = "Cannot find network with ssid: " + Ssid;
-                                        parameters.Result = "Net error!";
-                                        rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
-                                        return;
-                                    }     
-                            parameters.Clear();
-                            parameters.Notification = message;
-                            rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
-
+                                    
+                           var q = ResultCollection.Where(X => X.Ssid == "ALCATEL1").FirstOrDefault();
+                           if(q == null)
+                              {
+                                parameters.Clear();
+                                parameters.Notification = "Cannot find network with ssid: " + Ssid;
+                                parameters.Result = "Net error!";
+                                rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
+                                return;
+                              }
+                                    
+                                    
                             WiFiNetworkDisplay selectedNetwork = q;
-
-
+                                    
                             WiFiConnectionResult result0;
                             WiFiReconnectionKind reconnectionKind = WiFiReconnectionKind.Manual;
                             if (selectedNetwork.AvailableNetwork.SecuritySettings.NetworkAuthenticationType == Windows.Networking.Connectivity.NetworkAuthenticationType.Open80211)
@@ -236,11 +246,16 @@ namespace vaConnect
                             }
                             else
                             {
-                                // Only the password potion of the credential need to be supplied
                                 var credential = new PasswordCredential();
-                                        String Password = z.getUser_policies().getPassword();
-                                credential.Password = Password;
-
+                                String Password = z.getUser_policies().getPassword();
+                                String Username = z.getUser_policies().getUsername();
+                                        credential.Password = "11111";// Password;
+                                credential.UserName = Username;
+                                parameters.Clear();
+                                parameters.Notification = message;
+                                parameters.Result = string.Format("!!Connecting to {0} ", Ssid);
+                                rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
+                                System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(5));
                                 result0 = await firstAdapter.ConnectAsync(selectedNetwork.AvailableNetwork, reconnectionKind, credential);
                             }
 
@@ -299,8 +314,7 @@ namespace vaConnect
                                 ////////////////////////////////////////////////////////////////////
 
                                 //EAP-PEAP
-                                var result = await Windows.Devices.Enumeration.DeviceInformation.
-                                FindAllAsync(WiFiAdapter.GetDeviceSelector());
+                                var result = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(WiFiAdapter.GetDeviceSelector());
                                 if (result.Count >= 1)
                                 {
                                     firstAdapter = await WiFiAdapter.FromIdAsync(result[0].Id);
@@ -312,10 +326,11 @@ namespace vaConnect
                                     foreach (var network in report.AvailableNetworks)
                                     {
                                         //Format the network information
-                                        message += string.Format("NetworkName: {0}\n", network.Ssid);
+                                        message += string.Format("NetworkName: {0}\n ", network.Ssid);
                                         ResultCollection.Add(new WiFiNetworkDisplay(network, firstAdapter));
 
                                     }
+
                                     var q = ResultCollection.Where(X => X.Ssid == Ssid).FirstOrDefault();
                                     if (q == null)
                                     {
@@ -325,12 +340,9 @@ namespace vaConnect
                                         rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
                                         return;
                                     }
-                                    parameters.Clear();
-                                    parameters.Notification = message;
-                                    rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
+
 
                                     WiFiNetworkDisplay selectedNetwork = q;
-
 
                                     WiFiConnectionResult result0;
                                     WiFiReconnectionKind reconnectionKind = WiFiReconnectionKind.Manual;
@@ -340,11 +352,16 @@ namespace vaConnect
                                     }
                                     else
                                     {
-                                        // Only the password potion of the credential need to be supplied
                                         var credential = new PasswordCredential();
                                         String Password = z.getUser_policies().getPassword();
+                                        String Username = z.getUser_policies().getUsername();
                                         credential.Password = Password;
-
+                                        credential.UserName = Username;
+                                        parameters.Clear();
+                                        parameters.Notification = message;
+                                        parameters.Result = string.Format("Connecting to {0} ", Ssid);
+                                        rootFrame.Navigate(typeof(WiFiConfigPage), parameters);
+                                        System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(5));
                                         result0 = await firstAdapter.ConnectAsync(selectedNetwork.AvailableNetwork, reconnectionKind, credential);
                                     }
 
@@ -379,9 +396,9 @@ namespace vaConnect
                                 }
                                 break;
                             }
-                            ///////////////////////////
-                          
-                    default:
+                        ///////////////////////////
+
+                        default:
                             {
                                break ;
                             }

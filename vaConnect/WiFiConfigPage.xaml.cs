@@ -31,6 +31,7 @@ namespace vaConnect
             this.InitializeComponent();
             if (e.Parameter != null)
             {
+                pageMessage.Text = "";
                 var par = (Messages)e.Parameter;
                 pageMessage.Text = par.Notification.ToString();
                 pageResult.Text = par.Result.ToString();
@@ -40,6 +41,7 @@ namespace vaConnect
                 pageMessage.Text = "";
             }
             base.OnNavigatedTo(e);
+            
         }
     }
 }
