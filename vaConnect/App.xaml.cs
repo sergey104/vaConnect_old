@@ -249,7 +249,7 @@ namespace vaConnect
                                 var credential = new PasswordCredential();
                                 String Password = z.getUser_policies().getPassword();
                                 String Username = z.getUser_policies().getUsername();
-                                        credential.Password = "11111";// Password;
+                                        credential.Password = "passIimpf2soppistmmrtw";// Password;
                                 credential.UserName = Username;
                                 parameters.Clear();
                                 parameters.Notification = message;
